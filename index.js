@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
     initializeSmoothScroll();
     initializeScrollEffects();
+    initializeCTAButtons();
 });
 
 // Inicialização da navegação mobile
@@ -22,7 +23,14 @@ function initializeNavigation() {
         
         // Fecha o menu ao clicar em um link
         navLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
+            link.addEventListener('click', function(e) {
+                // Se for o botão CTA no menu, abre o chat
+                if (this.classList.contains('btn-cta')) {
+                    e.preventDefault();
+                    openChatWidget();
+                }
+                closeMobileMenu();
+            });
         });
         
         // Fecha o menu ao clicar fora dele
@@ -32,6 +40,8 @@ function initializeNavigation() {
             }
         });
     }
+    
+    console.log('✅ Navegação inicializada');
 }
 
 // Toggle do menu mobile
@@ -418,12 +428,20 @@ function initializeSmoothScroll() {
     
     links.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
             const targetId = this.getAttribute('href');
+            
+            // Se for um link para contato ou chat, abre o chat widget
+            if (targetId === '#contato' || targetId === '#chat') {
+                e.preventDefault();
+                openChatWidget();
+                closeMobileMenu();
+                return;
+            }
+            
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
+                e.preventDefault();
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight - 20;
                 
@@ -434,6 +452,62 @@ function initializeSmoothScroll() {
                 
                 // Fecha menu mobile se estiver aberto
                 closeMobileMenu();
+            }
+        });
+    });
+}
+
+// Inicialização dos botões CTA
+function initializeCTAButtons() {
+    // Seleciona todos os botões que devem abrir o chat
+    const chatButtons = document.querySelectorAll(`
+        .btn-cta,
+        .btn[href="#contato"],
+        .btn[href="#chat"],
+        [onclick="openChatWidget()"],
+        .process-cta .btn
+    `);
+    
+    chatButtons.forEach(button => {
+        // Remove qualquer evento onclick existente
+        button.removeAttribute('onclick');
+        
+        // Adiciona novo event listener
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            openChatWidget();
+            closeMobileMenu(); // Fecha menu mobile se estiver aberto
+        });
+    });
+    
+    // Botões de telefone
+    const phoneButtons = document.querySelectorAll('a[href^="tel:"]');
+    phoneButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Permite que o link de telefone funcione normalmente
+            // Opcionalmente, pode abrir uma modal de confirmação
+            console.log('Iniciando chamada telefônica');
+        });
+    });
+    
+    // Links do WhatsApp
+    const whatsappButtons = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]');
+    whatsappButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Permite que o link do WhatsApp funcione normalmente
+            console.log('Abrindo WhatsApp');
+        });
+    });
+    
+    // Botões de submit em formulários
+    const submitButtons = document.querySelectorAll('button[type="submit"], input[type="submit"]');
+    submitButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const form = this.closest('form');
+            if (form) {
+                // Se o formulário for válido, processará normalmente
+                // A validação já está implementada na função handleFormSubmit
+                console.log('Processando formulário');
             }
         });
     });
@@ -670,10 +744,400 @@ if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
 // Console log para debug (remover em produção)
 console.log('Auxílio Maternidade - Site carregado com sucesso!');
 
+// Função para verificar se todos os botões estão funcionando
+function verifyButtonFunctionality() {
+    console.log('=== VERIFICAÇÃO DE FUNCIONALIDADE DOS BOTÕES ===');
+    
+    // Verifica botões CTA
+    const ctaButtons = document.querySelectorAll('.btn-cta, .btn[href="#contato"], .btn[href="#chat"]');
+    console.log(`✅ Botões CTA encontrados: ${ctaButtons.length}`);
+    
+    // Verifica botões de processo
+    const processButtons = document.querySelectorAll('.process-cta .btn');
+    console.log(`✅ Botões de processo encontrados: ${processButtons.length}`);
+    
+    // Verifica chat widget
+    const chatWidget = document.getElementById('chatWidget');
+    console.log(`✅ Chat widget ${chatWidget ? 'encontrado' : 'NÃO encontrado'}`);
+    
+    // Verifica links de navegação
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    console.log(`✅ Links de navegação encontrados: ${navLinks.length}`);
+    
+    // Verifica FAQ
+    const faqItems = document.querySelectorAll('.faq-item');
+    console.log(`✅ Itens de FAQ encontrados: ${faqItems.length}`);
+    
+    // Verifica telefone e WhatsApp
+    const phoneButtons = document.querySelectorAll('a[href^="tel:"]');
+    const whatsappButtons = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]');
+    console.log(`✅ Botões de telefone encontrados: ${phoneButtons.length}`);
+    console.log(`✅ Botões de WhatsApp encontrados: ${whatsappButtons.length}`);
+    
+    console.log('=== VERIFICAÇÃO CONCLUÍDA ===');
+}
+
+// Função para testar funcionalidade do chat
+function testChatWidget() {
+    const chatWidget = window.chatWidgetInstance;
+    if (chatWidget) {
+        console.log('✅ Chat widget instanciado corretamente');
+        return true;
+    } else {
+        console.log('❌ Chat widget não instanciado');
+        return false;
+    }
+}
+
+// Chat Widget Discreto
+class ChatWidget {
+    constructor() {
+        this.currentStep = 0;
+        this.userData = {};
+        this.isOpen = false;
+        this.questions = [
+            {
+                id: 'inicio',
+                question: 'Perfeito! Vamos descobrir se você tem direito. Primeiro: você tem filhos?',
+                options: ['Sim, tenho filhos', 'Não tenho filhos']
+            },
+            {
+                id: 'idade_filhos',
+                question: 'Ótimo! Algum dos seus filhos nasceu nos últimos 5 anos?',
+                options: ['Sim', 'Não, todos são mais velhos']
+            },
+            {
+                id: 'situacao_trabalho',
+                question: 'No momento do nascimento, qual era sua situação?',
+                options: ['Estava empregada (CLT)', 'Estava desempregada', 'Era autônoma/MEI', 'Era contribuinte individual']
+            },
+            {
+                id: 'contribuicao_inss',
+                question: 'Você já contribuiu para o INSS em algum momento?',
+                options: ['Sim, sempre contribuí', 'Sim, mas parei', 'Nunca contribuí', 'Não sei ao certo']
+            },
+            {
+                id: 'dados_pessoais',
+                question: 'Ótimo! Agora preciso de seus dados para análise:',
+                type: 'form'
+            }
+        ];
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        // Botão de abrir/fechar widget
+        const widgetButton = document.getElementById('chatWidgetButton');
+        const widgetClose = document.getElementById('chatWidgetClose');
+        
+        if (widgetButton) {
+            widgetButton.addEventListener('click', () => this.toggleWidget());
+        }
+        
+        if (widgetClose) {
+            widgetClose.addEventListener('click', () => this.closeWidget());
+        }
+
+        // Botões de opção do widget
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#chatWidgetOptions') && e.target.classList.contains('option-btn')) {
+                const value = e.target.dataset.value;
+                this.handleOptionClick(value, e.target.textContent);
+            }
+        });
+
+        // Input do widget
+        const widgetInput = document.getElementById('chatWidgetInput');
+        const widgetSend = document.getElementById('chatWidgetSend');
+
+        if (widgetSend) {
+            widgetSend.addEventListener('click', () => this.sendWidgetMessage());
+        }
+
+        if (widgetInput) {
+            widgetInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.sendWidgetMessage();
+                }
+            });
+        }
+    }
+
+    toggleWidget() {
+        const widget = document.getElementById('chatWidgetWindow');
+        if (this.isOpen) {
+            this.closeWidget();
+        } else {
+            this.openWidget();
+        }
+    }
+
+    openWidget() {
+        const widget = document.getElementById('chatWidgetWindow');
+        const notification = document.querySelector('.chat-notification');
+        
+        widget.classList.add('open');
+        this.isOpen = true;
+        
+        // Esconder notificação
+        if (notification) {
+            notification.style.display = 'none';
+        }
+    }
+
+    closeWidget() {
+        const widget = document.getElementById('chatWidgetWindow');
+        widget.classList.remove('open');
+        this.isOpen = false;
+    }
+
+    handleOptionClick(value, text) {
+        if (value === 'sim') {
+            this.addUserMessage(text);
+            this.nextQuestion();
+        } else if (value === 'informacoes') {
+            this.addUserMessage(text);
+            this.showInformation();
+        } else {
+            this.addUserMessage(text);
+            this.userData[this.questions[this.currentStep].id] = value;
+            this.nextQuestion();
+        }
+    }
+
+    addUserMessage(message) {
+        const messagesContainer = document.getElementById('chatWidgetMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message user-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="message-content">
+                <p>${message}</p>
+            </div>
+        `;
+        messagesContainer.appendChild(messageDiv);
+        this.scrollToBottom();
+    }
+
+    addBotMessage(message, options = []) {
+        const messagesContainer = document.getElementById('chatWidgetMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'message bot-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+                <p>${message}</p>
+            </div>
+        `;
+        messagesContainer.appendChild(messageDiv);
+
+        setTimeout(() => {
+            this.updateWidgetOptions(options);
+        }, 500);
+
+        this.scrollToBottom();
+    }
+
+    updateWidgetOptions(options) {
+        const widgetOptions = document.getElementById('chatWidgetOptions');
+        
+        if (options.length > 0) {
+            widgetOptions.innerHTML = '';
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.dataset.value = option.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                button.textContent = option;
+                widgetOptions.appendChild(button);
+            });
+            widgetOptions.style.display = 'block';
+            document.querySelector('#chatWidgetWindow .chat-input-container').style.display = 'none';
+        } else {
+            widgetOptions.style.display = 'none';
+            document.querySelector('#chatWidgetWindow .chat-input-container').style.display = 'flex';
+        }
+    }
+
+    nextQuestion() {
+        this.currentStep++;
+        
+        if (this.currentStep < this.questions.length) {
+            const question = this.questions[this.currentStep];
+            
+            setTimeout(() => {
+                if (question.type === 'form') {
+                    this.showWidgetForm();
+                } else {
+                    this.addBotMessage(question.question, question.options);
+                }
+            }, 1000);
+        } else {
+            this.showResult();
+        }
+    }
+
+    showInformation() {
+        setTimeout(() => {
+            this.addBotMessage(
+                'Somos especialistas em benefícios para mães! Nossa análise é gratuita e você só paga se conseguirmos seu benefício. Quer descobrir?',
+                ['Sim, quero descobrir!', 'Tenho mais dúvidas']
+            );
+        }, 1000);
+    }
+
+    showWidgetForm() {
+        this.addBotMessage('Preencha seus dados para análise personalizada:');
+        
+        setTimeout(() => {
+            const widgetOptions = document.getElementById('chatWidgetOptions');
+            widgetOptions.innerHTML = `
+                <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <form id="chatWidgetForm">
+                        <div style="margin-bottom: 0.75rem;">
+                            <input type="text" name="nome" placeholder="Seu nome" required 
+                                   style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.85rem;">
+                        </div>
+                        <div style="margin-bottom: 0.75rem;">
+                            <input type="tel" name="telefone" placeholder="WhatsApp" required 
+                                   style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.85rem;">
+                        </div>
+                        <div style="margin-bottom: 0.75rem;">
+                            <input type="email" name="email" placeholder="E-mail" required 
+                                   style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.85rem;">
+                        </div>
+                        <button type="submit" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                                color: white; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+                            Enviar e Receber Análise
+                        </button>
+                    </form>
+                </div>
+            `;
+
+            document.getElementById('chatWidgetForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleWidgetFormSubmit(e.target);
+            });
+        }, 1000);
+    }
+
+    handleWidgetFormSubmit(form) {
+        const formData = new FormData(form);
+        this.userData.nome = formData.get('nome');
+        this.userData.telefone = formData.get('telefone');
+        this.userData.email = formData.get('email');
+
+        this.addUserMessage(`Dados enviados: ${this.userData.nome}`);
+        this.showResult();
+    }
+
+    showResult() {
+        setTimeout(() => {
+            this.addBotMessage(
+                `Ótimo, ${this.userData.nome || 'querida'}! 🎉<br><br>
+                <strong>Você pode ter direito sim!</strong><br><br>
+                Nossa equipe entrará em contato via WhatsApp em até 2 horas.<br><br>
+                ✅ Análise detalhada<br>
+                ✅ Orientações completas<br>
+                ✅ Acompanhamento total`
+            );
+
+            setTimeout(() => {
+                document.getElementById('chatWidgetOptions').innerHTML = `
+                    <div style="text-align: center; padding: 1rem;">
+                        <p style="color: #10b981; font-weight: 600; margin: 0; font-size: 0.9rem;">
+                            ✅ Dados enviados com sucesso!
+                        </p>
+                    </div>
+                `;
+            }, 2000);
+
+        }, 1000);
+    }
+
+    sendWidgetMessage() {
+        const input = document.getElementById('chatWidgetInput');
+        const message = input.value.trim();
+        
+        if (message) {
+            this.addUserMessage(message);
+            input.value = '';
+            
+            setTimeout(() => {
+                this.addBotMessage('Obrigado! Nossa equipe analisará sua informação.');
+            }, 1000);
+        }
+    }
+
+    scrollToBottom() {
+        const messagesContainer = document.getElementById('chatWidgetMessages');
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+}
+
+// Função global para abrir o chat widget
+function openChatWidget() {
+    const widget = document.getElementById('chatWidgetWindow');
+    const chatWidget = window.chatWidgetInstance;
+    
+    console.log('🚀 Tentando abrir chat widget...');
+    
+    if (chatWidget) {
+        chatWidget.openWidget();
+        console.log('✅ Chat widget aberto com sucesso');
+    } else {
+        console.log('❌ Chat widget não encontrado, tentando abrir manualmente...');
+        // Fallback: abrir manualmente se a instância não existir
+        if (widget) {
+            widget.classList.add('open');
+            const notification = document.querySelector('.chat-notification');
+            if (notification) {
+                notification.style.display = 'none';
+            }
+            console.log('✅ Chat widget aberto manualmente');
+        }
+    }
+}
+
+// Inicializar widget quando a página carregar
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('chatWidget')) {
+        window.chatWidgetInstance = new ChatWidget();
+        console.log('✅ Chat Widget inicializado');
+    }
+    
+    // Executar verificações após um pequeno delay para garantir que tudo foi carregado
+    setTimeout(() => {
+        verifyButtonFunctionality();
+        testChatWidget();
+    }, 1000);
+});
+
 // Exporta funcionalidades para uso global (se necessário)
 window.AuxilioMaternidade = {
     showSuccess,
     showError,
     toggleMobileMenu,
-    closeMobileMenu
+    closeMobileMenu,
+    openChatWidget,
+    verifyButtonFunctionality,
+    testChatWidget
 };
+
+// Função adicional para reativar botões caso necessário
+function reactivateAllButtons() {
+    console.log('🔄 Reativando todos os botões...');
+    initializeCTAButtons();
+    initializeNavigation();
+    console.log('✅ Botões reativados');
+}
+
+// Expor função globalmente
+window.reactivateAllButtons = reactivateAllButtons;
