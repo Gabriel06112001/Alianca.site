@@ -16,6 +16,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Integração com Bootstrap */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -301,16 +302,24 @@ a.btn-secondary:hover {
 }
 
 .hero-main-image {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
 }
 
 .hero-main-image i {
@@ -548,6 +557,19 @@ a.btn-secondary:hover {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+}
+
+.about-image-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.about-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
 }
 
 .chart-container {
@@ -1188,6 +1210,21 @@ a.btn-secondary:hover {
     width: 120px;
     height: 120px;
     margin: 0 auto 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.differential-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.differential-item:hover .differential-photo {
+    transform: scale(1.05);
 }
 
 .tech-background {
@@ -1815,8 +1852,17 @@ a.btn-secondary:hover {
     }
     
     .hero-main-image {
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
+    }
+    
+    .about-photo {
+        height: 200px;
+    }
+    
+    .differential-visual {
+        width: 100px;
+        height: 100px;
     }
     
     .hero-main-image i {
@@ -2031,4 +2077,875 @@ a.btn-secondary:hover {
 @keyframes spin {
     0% { transform: translate(-50%, -50%) rotate(0deg); }
     100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ============================================
+   FLUXOGRAMA SIMPLIFICADO
+============================================ */
+
+/* Seção do processo */
+.process {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 5rem 0;
+    position: relative;
+}
+
+.process .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.process-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+/* Container do fluxograma */
+.simple-flowchart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 3rem 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.simple-flowchart::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #10b981);
+}
+
+/* Passos do fluxograma */
+.flowchart-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 280px;
+    position: relative;
+}
+
+.flowchart-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Ícones dos passos */
+.step-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    border-radius: 50%;
+    opacity: 0.1;
+    transform: scale(1.5);
+}
+
+.step-1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.step-2 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.step-3 {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+/* Conteúdo dos passos */
+.step-content h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.step-content p {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.step-time {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #475569;
+}
+
+/* Setas do fluxograma */
+.flowchart-arrow {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0 1rem;
+}
+
+.arrow-line {
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+    position: relative;
+}
+
+.arrow-head {
+    width: 0;
+    height: 0;
+    border-left: 10px solid #764ba2;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    margin-left: -2px;
+}
+
+/* Animação das setas */
+.arrow-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -20px;
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: arrow-shine 2s ease-in-out infinite;
+}
+
+@keyframes arrow-shine {
+    0% { left: -20px; }
+    100% { left: 60px; }
+}
+
+/* Cartão de garantia */
+.process-guarantee {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0 2rem 0;
+}
+
+.guarantee-card {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.3s ease;
+}
+
+.guarantee-card:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-2px);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+}
+
+.guarantee-icon {
+    font-size: 2rem;
+    opacity: 0.9;
+}
+
+.guarantee-content h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.guarantee-content p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Botão CTA do fluxograma */
+.process-cta {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.flowchart-cta {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.flowchart-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.flowchart-cta:hover::before {
+    left: 100%;
+}
+
+.flowchart-cta:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.cta-subtitle {
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* Responsividade do fluxograma */
+@media (max-width: 992px) {
+    .simple-flowchart {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .flowchart-arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
+    }
+    
+    .arrow-line {
+        width: 30px;
+    }
+    
+    .flowchart-step {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .process {
+        padding: 3rem 0;
+    }
+    
+    .simple-flowchart {
+        padding: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .step-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .step-content h3 {
+        font-size: 1.1rem;
+    }
+    
+    .guarantee-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .flowchart-cta {
+        padding: 0.875rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Animações de entrada */
+.flowchart-step {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.flowchart-step:nth-child(1) { animation-delay: 0.1s; }
+.flowchart-step:nth-child(3) { animation-delay: 0.3s; }
+.flowchart-step:nth-child(5) { animation-delay: 0.5s; }
+
+.flowchart-arrow {
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.flowchart-arrow:nth-child(2) { animation-delay: 0.2s; }
+.flowchart-arrow:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================
+   INTEGRAÇÃO BOOTSTRAP
+============================================ */
+
+/* ============================================
+   DIVISORES COM ONDULAÇÕES
+============================================ */
+
+/* Divisor básico */
+.section-divider {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+}
+
+/* Ondulações diferentes */
+.wave-divider-1 {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.wave-divider-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,120 C200,60 400,60 600,120 C800,180 1000,60 1200,120 L1200,0 L0,0 Z' fill='white'/%3E%3C/svg%3E") no-repeat center top;
+    background-size: cover;
+}
+
+.wave-divider-2 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.wave-divider-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 C300,80 600,20 900,80 C1050,120 1150,40 1200,80 L1200,120 L0,120 Z' fill='white'/%3E%3C/svg%3E") no-repeat center bottom;
+    background-size: cover;
+}
+
+.wave-divider-3 {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.wave-divider-3::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,120 C150,80 350,80 500,120 C650,160 850,80 1000,120 C1100,140 1150,100 1200,120 L1200,0 L0,0 Z' fill='white'/%3E%3C/svg%3E") no-repeat center top;
+    background-size: cover;
+}
+
+.wave-divider-4 {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.wave-divider-4::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 C200,100 400,0 600,50 C800,100 1000,0 1200,50 L1200,120 L0,120 Z' fill='white'/%3E%3C/svg%3E") no-repeat center bottom;
+    background-size: cover;
+}
+
+.wave-divider-5 {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.wave-divider-5::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,120 C400,20 600,120 800,60 C900,30 1100,90 1200,60 L1200,0 L0,0 Z' fill='white'/%3E%3C/svg%3E") no-repeat center top;
+    background-size: cover;
+}
+
+/* Divisor animado */
+.wave-animated {
+    position: relative;
+    overflow: hidden;
+}
+
+.wave-animated::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    animation: wave-shine 3s infinite;
+}
+
+@keyframes wave-shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Variações de altura */
+.section-divider.small {
+    height: 50px;
+}
+
+.section-divider.medium {
+    height: 80px;
+}
+
+.section-divider.large {
+    height: 120px;
+}
+
+/* ============================================
+   MELHORIAS NAS SEÇÕES
+============================================ */
+
+/* Espaçamento melhorado para seções */
+section {
+    position: relative;
+    z-index: 2;
+}
+
+/* Alternância de backgrounds para criar mais divisão visual */
+.hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.features {
+    background: #ffffff;
+    padding: 5rem 0;
+}
+
+.solutions {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 5rem 0;
+}
+
+.about {
+    background: #ffffff;
+    padding: 5rem 0;
+}
+
+.process {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 5rem 0;
+}
+
+.testimonials {
+    background: #ffffff;
+    padding: 5rem 0;
+}
+
+.differentials {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    padding: 5rem 0;
+}
+
+.categories {
+    background: #ffffff;
+    padding: 5rem 0;
+}
+
+.faq {
+    background: linear-gradient(135deg, #fefbff 0%, #f3e8ff 100%);
+    padding: 5rem 0;
+}
+
+.company {
+    background: #ffffff;
+    padding: 5rem 0;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 5rem 0;
+}
+
+/* Efeitos de entrada para seções */
+.section-enter {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+}
+
+.section-enter.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ondulações mais complexas com SVG inline */
+.wave-divider-advanced-1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    height: 100px;
+}
+
+.wave-divider-advanced-1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%23ffffff'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%23ffffff'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat center top;
+    background-size: cover;
+}
+
+.wave-divider-advanced-2 {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    position: relative;
+    height: 100px;
+}
+
+.wave-divider-advanced-2::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat center bottom;
+    background-size: cover;
+}
+
+/* Ondulações com gradientes múltiplos */
+.wave-divider-gradient {
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background-size: 300% 300%;
+    animation: gradient-wave 6s ease infinite;
+    position: relative;
+    height: 120px;
+}
+
+@keyframes gradient-wave {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.wave-divider-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat center top;
+    background-size: cover;
+}
+
+/* Microinterações para ondulações */
+.section-divider {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.section-divider:hover {
+    transform: scaleY(1.1);
+    filter: brightness(1.1);
+}
+
+/* Ondulações pulsantes */
+.wave-pulse {
+    animation: wave-pulse 4s ease-in-out infinite;
+}
+
+@keyframes wave-pulse {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.05); }
+}
+
+/* Efeito parallax leve para ondulações */
+.wave-parallax {
+    will-change: transform;
+}
+
+/* Ondulações responsivas com altura dinâmica */
+.section-divider.auto-height {
+    height: clamp(60px, 8vw, 120px);
+}
+
+/* Responsividade para divisores */
+@media (max-width: 768px) {
+    .section-divider {
+        height: 60px;
+    }
+    
+    .section-divider.large {
+        height: 80px;
+    }
+}
+
+/* Botões customizados que se integram com Bootstrap */
+.btn-custom-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-custom-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-success:hover {
+    background: linear-gradient(135deg, #0d9568 0%, #047857 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+/* Cards Bootstrap customizados */
+.card-custom {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Modals Bootstrap customizados */
+.modal-custom .modal-content {
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-custom .modal-header {
+    border-bottom: 1px solid #e9ecef;
+    padding: 1.5rem;
+}
+
+.modal-custom .modal-body {
+    padding: 2rem;
+}
+
+/* Toasts Bootstrap customizados */
+.toast-custom {
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.toast-custom.toast-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.toast-custom.toast-error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.toast-custom.toast-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+}
+
+/* Accordion Bootstrap customizado */
+.accordion-custom .accordion-item {
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-custom .accordion-button {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border: none;
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
+}
+
+.accordion-custom .accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: none;
+}
+
+.accordion-custom .accordion-body {
+    padding: 1.5rem;
+    background: white;
+}
+
+/* Formulários Bootstrap customizados */
+.form-control-custom {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-control-custom:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Navbar Bootstrap customizada */
+.navbar-custom {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar-custom.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Utilitários Bootstrap customizados */
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-bg-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.shadow-custom {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-custom-hover {
+    transition: all 0.3s ease;
+}
+
+.shadow-custom-hover:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Animações Bootstrap customizadas */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsividade Bootstrap customizada */
+@media (max-width: 768px) {
+    .btn-custom-primary,
+    .btn-custom-success {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .card-custom {
+        margin-bottom: 1.5rem;
+    }
+    
+    .modal-custom .modal-body {
+        padding: 1.5rem;
+    }
 }
