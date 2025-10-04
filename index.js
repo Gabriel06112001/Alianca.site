@@ -848,7 +848,7 @@ function showNotification(message, type = 'info') {
         padding: '1rem',
         borderRadius: '8px',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-        backgroundColor: type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6',
+        backgroundColor: type === 'success' ? '#ec4899' : type === 'error' ? '#ef4444' : '#3b82f6',
         color: 'white',
         transform: 'translateX(100%)',
         transition: 'transform 0.3s ease'
@@ -1263,6 +1263,64 @@ function verifyPhotos() {
     return totalPhotos;
 }
 
+// Função para verificar a paleta de cores rosa
+function verifyPinkColorScheme() {
+    console.log('=== VERIFICAÇÃO DA PALETA ROSA ===');
+    
+    // Verifica elementos principais com gradiente rosa
+    const elementsToCheck = [
+        { selector: '.hero', property: 'background-image', expected: 'ec4899' },
+        { selector: '.nav-brand h2', property: 'background-image', expected: 'ec4899' },
+        { selector: '.btn-primary', property: 'background-image', expected: 'ec4899' },
+        { selector: '.chat-widget-button', property: 'background-image', expected: 'ec4899' },
+        { selector: '.cta-section', property: 'background-image', expected: 'ec4899' },
+        { selector: '.guarantee-card', property: 'background-image', expected: 'ec4899' }
+    ];
+    
+    let pinkElements = 0;
+    
+    elementsToCheck.forEach(item => {
+        const element = document.querySelector(item.selector);
+        if (element) {
+            const computedStyle = window.getComputedStyle(element);
+            const value = computedStyle.getPropertyValue(item.property);
+            
+            if (value.includes(item.expected) || value.includes('236, 72, 153')) {
+                console.log(`✅ ${item.selector}: Rosa aplicado`);
+                pinkElements++;
+            } else {
+                console.log(`❌ ${item.selector}: Rosa não detectado`);
+                console.log(`   Valor atual: ${value}`);
+            }
+        } else {
+            console.log(`⚠️  ${item.selector}: Elemento não encontrado`);
+        }
+    });
+    
+    console.log(`🌸 Total de elementos com rosa: ${pinkElements}/${elementsToCheck.length}`);
+    
+    // Verifica cores dos ícones do fluxograma
+    const flowchartSteps = document.querySelectorAll('.step-icon');
+    console.log(`🔄 Passos do fluxograma com nova paleta: ${flowchartSteps.length}`);
+    
+    // Verifica se o tema geral mudou
+    const heroElement = document.querySelector('.hero');
+    if (heroElement) {
+        const heroStyle = window.getComputedStyle(heroElement);
+        const heroBackground = heroStyle.getPropertyValue('background-image');
+        
+        if (heroBackground.includes('ec4899') || heroBackground.includes('236, 72, 153')) {
+            console.log('✅ TEMA PRINCIPAL: Rosa predominante confirmado');
+        } else {
+            console.log('❌ TEMA PRINCIPAL: Rosa não está predominante');
+        }
+    }
+    
+    console.log('=== VERIFICAÇÃO DA PALETA ROSA CONCLUÍDA ===');
+    
+    return pinkElements;
+}
+
 // Chat Widget Discreto
 class ChatWidget {
     constructor() {
@@ -1485,7 +1543,7 @@ class ChatWidget {
                     <input type="tel" id="questionInput" placeholder="${question.placeholder || 'Digite sua resposta'}" 
                            style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
                     <button onclick="window.chatWidgetInstance.handleInputSubmit('${question.id}')" 
-                            style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                            style="width: 100%; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); 
                             color: white; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; 
                             font-size: 0.9rem; margin-top: 0.75rem;">
                         Enviar
@@ -1576,7 +1634,7 @@ class ChatWidget {
                             <input type="email" name="email" placeholder="E-mail" required 
                                    style="width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.85rem;">
                         </div>
-                        <button type="submit" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                        <button type="submit" style="width: 100%; background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); 
                                 color: white; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
                             Enviar e Receber Análise
                         </button>
@@ -1619,7 +1677,7 @@ class ChatWidget {
             setTimeout(() => {
                 document.getElementById('chatWidgetOptions').innerHTML = `
                     <div style="text-align: center; padding: 1rem;">
-                        <p style="color: #10b981; font-weight: 600; margin: 0; font-size: 0.9rem;">
+                        <p style="color: #ec4899; font-weight: 600; margin: 0; font-size: 0.9rem;">
                             ✅ Dados enviados com sucesso!
                         </p>
                         <small style="color: #666; font-size: 0.8rem; display: block; margin-top: 0.5rem;">
@@ -1698,7 +1756,8 @@ document.addEventListener('DOMContentLoaded', () => {
         verifyTextImprovements();
         verifyFlowchart();
         verifyPhotos();
-    }, 2000);
+        verifyPinkColorScheme();
+    }, 2500);
 });
 
 // Exporta funcionalidades para uso global (se necessário)
@@ -1716,6 +1775,7 @@ window.AuxilioMaternidade = {
     verifyWaveDividers,
     verifyFlowchart,
     verifyPhotos,
+    verifyPinkColorScheme,
     // Funções do Bootstrap
     showBootstrapModal,
     hideBootstrapModal,
@@ -1743,27 +1803,26 @@ function demonstrateBootstrap() {
     setTimeout(() => {
         const modalContent = `
             <div class="text-center">
-                <h4 class="gradient-text mb-3">Bootstrap e Chat Atualizados!</h4>
-                <p>Agora você pode usar todos os componentes do Bootstrap 5.3:</p>
+                <h4 class="gradient-text mb-3">🌸 Nova Paleta Rosa Aplicada!</h4>
+                <p>O site agora usa rosa como cor predominante:</p>
                 <ul class="text-start mt-3">
-                    <li>✅ Modals responsivos</li>
-                    <li>✅ Toasts personalizados</li>
-                    <li>✅ Tooltips e popovers</li>
-                    <li>✅ Carousels e accordions</li>
-                    <li>✅ Sistema de grid</li>
-                    <li>✅ Componentes de formulário</li>
+                    <li>🌹 <strong>Rosa Principal:</strong> #ec4899</li>
+                    <li>💖 <strong>Rosa Escuro:</strong> #be185d</li>
+                    <li>🌸 <strong>Rosa Claro:</strong> #f472b6</li>
+                    <li>✨ <strong>Cor Complementar:</strong> #fbbf24 (dourado)</li>
+                    <li>🎨 <strong>Gradientes:</strong> Suaves transições rosa</li>
                 </ul>
-                <div class="alert alert-info mt-3">
-                    <strong>Novo:</strong> Pergunta de contato adicionada ao chat bot! 📱
+                <div class="alert alert-info mt-3" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); color: white; border: none;">
+                    <strong>✅ Transformação Completa:</strong> Todos os elementos visuais agora seguem a paleta rosa! 🌺
                 </div>
                 <div class="mt-4">
-                    <button class="btn btn-custom-success me-2" onclick="AuxilioMaternidade.createBootstrapToast('Teste realizado!', 'info')">Testar Toast</button>
-                    <button class="btn btn-custom-primary me-2" onclick="AuxilioMaternidade.openChatWidget()">Testar Chat</button>
-                    <button class="btn btn-outline-primary" onclick="AuxilioMaternidade.testContactQuestion()">Verificar Pergunta</button>
+                    <button class="btn btn-custom-success me-2" onclick="AuxilioMaternidade.verifyPinkColorScheme()">🔍 Verificar Paleta</button>
+                    <button class="btn btn-custom-primary me-2" onclick="AuxilioMaternidade.openChatWidget()">💬 Testar Chat Rosa</button>
+                    <button class="btn btn-outline-primary" onclick="AuxilioMaternidade.createBootstrapToast('Tema rosa ativo! 🌸', 'success')">🌹 Testar Rosa</button>
                 </div>
             </div>
         `;
-        createBootstrapModal('Demonstração Bootstrap + Chat', modalContent, 'lg');
+        createBootstrapModal('🌸 Paleta Rosa Implementada', modalContent, 'lg');
     }, 2000);
 }
 
