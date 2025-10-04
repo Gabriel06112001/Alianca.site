@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeSmoothScroll();
     initializeScrollEffects();
     initializeCTAButtons();
+    initializeBootstrap();
+    initializeSectionAnimations();
+    initializeWaveParallax();
+    initializeFlowchartAnimations();
 });
 
 // Inicialização da navegação mobile
@@ -513,6 +517,269 @@ function initializeCTAButtons() {
     });
 }
 
+// Inicialização do Bootstrap
+function initializeBootstrap() {
+    // Inicializa tooltips do Bootstrap
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    
+    // Inicializa popovers do Bootstrap
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+    
+    // Inicializa modals do Bootstrap se houver
+    const modalList = document.querySelectorAll('.modal');
+    modalList.forEach(modalEl => {
+        const modal = new bootstrap.Modal(modalEl);
+    });
+    
+    // Inicializa carousels do Bootstrap se houver
+    const carouselList = document.querySelectorAll('.carousel');
+    carouselList.forEach(carouselEl => {
+        const carousel = new bootstrap.Carousel(carouselEl);
+    });
+    
+    console.log('✅ Bootstrap inicializado');
+}
+
+// Inicialização de animações das seções
+function initializeSectionAnimations() {
+    // Adiciona classes para animação de entrada
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.classList.add('section-enter');
+    });
+    
+    // Observer para animar seções quando entram na view
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Anima divisores próximos também
+                const nextDivider = entry.target.nextElementSibling;
+                if (nextDivider && nextDivider.classList.contains('section-divider')) {
+                    nextDivider.style.opacity = '0';
+                    nextDivider.style.transform = 'scaleX(0)';
+                    nextDivider.style.transition = 'all 1s ease 0.3s';
+                    setTimeout(() => {
+                        nextDivider.style.opacity = '1';
+                        nextDivider.style.transform = 'scaleX(1)';
+                    }, 300);
+                }
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '50px'
+    });
+    
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+    
+    console.log('✅ Animações de seção inicializadas');
+}
+
+// Efeitos parallax para ondulações
+function initializeWaveParallax() {
+    const waveElements = document.querySelectorAll('.wave-parallax');
+    
+    if (waveElements.length === 0 || isMobile()) return;
+    
+    window.addEventListener('scroll', throttle(() => {
+        const scrolled = window.pageYOffset;
+        
+        waveElements.forEach((wave, index) => {
+            const rect = wave.getBoundingClientRect();
+            const speed = 0.1 + (index * 0.05); // Velocidades diferentes para cada onda
+            
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const yPos = -(scrolled * speed);
+                wave.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            }
+        });
+    }, 16));
+    
+    console.log('✅ Efeitos parallax para ondulações inicializados');
+}
+
+// Animações especiais para o fluxograma
+function initializeFlowchartAnimations() {
+    const flowchart = document.querySelector('.simple-flowchart');
+    if (!flowchart) return;
+    
+    const flowchartObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Anima os passos sequencialmente
+                const steps = entry.target.querySelectorAll('.flowchart-step');
+                const arrows = entry.target.querySelectorAll('.flowchart-arrow');
+                
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.style.opacity = '1';
+                        step.style.transform = 'translateY(0)';
+                        step.style.transition = 'all 0.6s ease';
+                        
+                        // Adiciona um efeito de pulse quando aparece
+                        setTimeout(() => {
+                            step.style.transform = 'translateY(0) scale(1.05)';
+                            setTimeout(() => {
+                                step.style.transform = 'translateY(0) scale(1)';
+                            }, 200);
+                        }, 300);
+                        
+                    }, index * 200);
+                });
+                
+                // Anima as setas
+                arrows.forEach((arrow, index) => {
+                    setTimeout(() => {
+                        arrow.style.opacity = '1';
+                        arrow.style.transition = 'all 0.4s ease';
+                    }, (index + 1) * 200 + 100);
+                });
+                
+                // Anima o cartão de garantia
+                setTimeout(() => {
+                    const guaranteeCard = document.querySelector('.guarantee-card');
+                    if (guaranteeCard) {
+                        guaranteeCard.style.opacity = '0';
+                        guaranteeCard.style.transform = 'perspective(1000px) rotateX(15deg) translateY(20px)';
+                        guaranteeCard.style.transition = 'all 0.8s ease';
+                        
+                        setTimeout(() => {
+                            guaranteeCard.style.opacity = '1';
+                            guaranteeCard.style.transform = 'perspective(1000px) rotateX(5deg) translateY(0)';
+                        }, 100);
+                    }
+                }, 800);
+                
+                flowchartObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+    
+    flowchartObserver.observe(flowchart);
+    
+    console.log('✅ Animações do fluxograma inicializadas');
+}
+
+// Funções utilitárias do Bootstrap
+function showBootstrapModal(modalId) {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+}
+
+function hideBootstrapModal(modalId) {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+            modal.hide();
+        }
+    }
+}
+
+function showBootstrapToast(toastId) {
+    const toastElement = document.getElementById(toastId);
+    if (toastElement) {
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+}
+
+// Função para criar toast dinâmico com Bootstrap
+function createBootstrapToast(message, type = 'info', duration = 5000) {
+    // Remove toasts existentes
+    const existingToasts = document.querySelectorAll('.toast-custom');
+    existingToasts.forEach(toast => toast.remove());
+    
+    // Cria container de toasts se não existir
+    let toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';
+        toastContainer.style.zIndex = '9999';
+        document.body.appendChild(toastContainer);
+    }
+    
+    // Cria o toast
+    const toastId = 'toast-' + Date.now();
+    const toastHTML = `
+        <div id="${toastId}" class="toast toast-custom toast-${type}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="${duration}">
+            <div class="toast-header">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                <strong class="me-auto">${type === 'success' ? 'Sucesso' : type === 'error' ? 'Erro' : 'Informação'}</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                ${message}
+            </div>
+        </div>
+    `;
+    
+    toastContainer.insertAdjacentHTML('beforeend', toastHTML);
+    
+    // Inicializa e mostra o toast
+    const toastElement = document.getElementById(toastId);
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+    
+    return toast;
+}
+
+// Função para criar modal dinâmico com Bootstrap
+function createBootstrapModal(title, content, size = 'lg') {
+    const modalId = 'modal-' + Date.now();
+    const modalHTML = `
+        <div class="modal fade modal-custom" id="${modalId}" tabindex="-1" aria-labelledby="${modalId}Label" aria-hidden="true">
+            <div class="modal-dialog modal-${size}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title gradient-text" id="${modalId}Label">${title}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ${content}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-custom-primary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    const modalElement = document.getElementById(modalId);
+    const modal = new bootstrap.Modal(modalElement);
+    
+    // Remove o modal do DOM quando fechado
+    modalElement.addEventListener('hidden.bs.modal', function () {
+        modalElement.remove();
+    });
+    
+    modal.show();
+    return modal;
+}
+
+// Função para adicionar tooltip Bootstrap dinamicamente
+function addBootstrapTooltip(element, text, placement = 'top') {
+    element.setAttribute('data-bs-toggle', 'tooltip');
+    element.setAttribute('data-bs-placement', placement);
+    element.setAttribute('title', text);
+    
+    new bootstrap.Tooltip(element);
+}
+
 // Efeitos de scroll
 function initializeScrollEffects() {
     let lastScrollTop = 0;
@@ -543,13 +810,17 @@ function initializeScrollEffects() {
     });
 }
 
-// Funções de notificação
+// Funções de notificação (agora usando Bootstrap)
 function showSuccess(message) {
-    showNotification(message, 'success');
+    createBootstrapToast(message, 'success');
 }
 
 function showError(message) {
-    showNotification(message, 'error');
+    createBootstrapToast(message, 'error');
+}
+
+function showInfo(message) {
+    createBootstrapToast(message, 'info');
 }
 
 function showNotification(message, type = 'info') {
@@ -760,6 +1031,11 @@ function verifyButtonFunctionality() {
     const chatWidget = document.getElementById('chatWidget');
     console.log(`✅ Chat widget ${chatWidget ? 'encontrado' : 'NÃO encontrado'}`);
     
+    // Verifica perguntas do chat
+    if (window.chatWidgetInstance && window.chatWidgetInstance.questions) {
+        console.log(`✅ Perguntas do chat: ${window.chatWidgetInstance.questions.length} (incluindo nova pergunta de contato)`);
+    }
+    
     // Verifica links de navegação
     const navLinks = document.querySelectorAll('.nav-menu a');
     console.log(`✅ Links de navegação encontrados: ${navLinks.length}`);
@@ -782,11 +1058,209 @@ function testChatWidget() {
     const chatWidget = window.chatWidgetInstance;
     if (chatWidget) {
         console.log('✅ Chat widget instanciado corretamente');
+        console.log(`📋 Total de perguntas: ${chatWidget.questions.length}`);
+        
+        // Lista todas as perguntas
+        chatWidget.questions.forEach((q, index) => {
+            console.log(`   ${index + 1}. ${q.question} (${q.type || 'opções'})`);
+        });
+        
         return true;
     } else {
         console.log('❌ Chat widget não instanciado');
         return false;
     }
+}
+
+// Função para testar especificamente a nova pergunta de contato
+function testContactQuestion() {
+    const chatWidget = window.chatWidgetInstance;
+    if (chatWidget) {
+        const contactQuestion = chatWidget.questions.find(q => q.id === 'numero_contato');
+        if (contactQuestion) {
+            console.log('✅ Pergunta de contato encontrada:', contactQuestion.question);
+            return true;
+        } else {
+            console.log('❌ Pergunta de contato não encontrada');
+            return false;
+        }
+    }
+    return false;
+}
+
+// Função para verificar as melhorias de texto implementadas
+function verifyTextImprovements() {
+    console.log('=== VERIFICAÇÃO DAS MELHORIAS DE TEXTO ===');
+    
+    // Verifica se os textos foram atualizados conforme sugerido pelo advogado
+    const improvements = [
+        {
+            section: 'Título SEO',
+            expected: 'direito a receber valores',
+            element: 'title'
+        },
+        {
+            section: 'Garantia',
+            expected: 'Garantimos Seu Direito',
+            selector: 'h3'
+        },
+        {
+            section: 'Processo Passo 3',
+            expected: 'valor devido',
+            selector: '.step-title'
+        },
+        {
+            section: 'FAQ - Tipo',
+            expected: 'direitos a valores significativos',
+            selector: '.faq-answer p'
+        }
+    ];
+    
+    let foundImprovements = 0;
+    
+    improvements.forEach(improvement => {
+        let found = false;
+        
+        if (improvement.element === 'title') {
+            const title = document.title;
+            if (title.includes(improvement.expected)) {
+                found = true;
+                foundImprovements++;
+            }
+        } else {
+            const elements = document.querySelectorAll(improvement.selector);
+            elements.forEach(el => {
+                if (el.textContent.includes(improvement.expected)) {
+                    found = true;
+                    foundImprovements++;
+                }
+            });
+        }
+        
+        console.log(`${found ? '✅' : '❌'} ${improvement.section}: ${found ? 'Atualizado' : 'Não encontrado'}`);
+    });
+    
+    console.log(`📊 Total de melhorias implementadas: ${foundImprovements}/${improvements.length}`);
+    console.log('=== VERIFICAÇÃO CONCLUÍDA ===');
+    
+    return foundImprovements === improvements.length;
+}
+
+// Função para verificar as ondulações implementadas
+function verifyWaveDividers() {
+    console.log('=== VERIFICAÇÃO DAS ONDULAÇÕES ===');
+    
+    const waveDividers = document.querySelectorAll('.section-divider');
+    console.log(`🌊 Total de divisores ondulados: ${waveDividers.length}`);
+    
+    const waveTypes = {
+        'wave-divider-1': 0,
+        'wave-divider-2': 0,
+        'wave-divider-3': 0,
+        'wave-divider-4': 0,
+        'wave-divider-5': 0,
+        'wave-divider-advanced-1': 0,
+        'wave-divider-advanced-2': 0,
+        'wave-divider-gradient': 0
+    };
+    
+    waveDividers.forEach(divider => {
+        Object.keys(waveTypes).forEach(type => {
+            if (divider.classList.contains(type)) {
+                waveTypes[type]++;
+            }
+        });
+    });
+    
+    Object.entries(waveTypes).forEach(([type, count]) => {
+        if (count > 0) {
+            console.log(`✅ ${type}: ${count} encontrado(s)`);
+        }
+    });
+    
+    // Verifica efeitos especiais
+    const animatedWaves = document.querySelectorAll('.wave-animated').length;
+    const pulseWaves = document.querySelectorAll('.wave-pulse').length;
+    const parallaxWaves = document.querySelectorAll('.wave-parallax').length;
+    
+    console.log(`🎭 Ondulações animadas: ${animatedWaves}`);
+    console.log(`💓 Ondulações pulsantes: ${pulseWaves}`);
+    console.log(`📐 Ondulações parallax: ${parallaxWaves}`);
+    
+    console.log('=== VERIFICAÇÃO CONCLUÍDA ===');
+    
+    return waveDividers.length;
+}
+
+// Função para verificar o fluxograma implementado
+function verifyFlowchart() {
+    console.log('=== VERIFICAÇÃO DO FLUXOGRAMA ===');
+    
+    const flowchart = document.querySelector('.simple-flowchart');
+    console.log(`📊 Fluxograma encontrado: ${flowchart ? 'Sim' : 'Não'}`);
+    
+    if (flowchart) {
+        const steps = flowchart.querySelectorAll('.flowchart-step');
+        const arrows = flowchart.querySelectorAll('.flowchart-arrow');
+        const guaranteeCard = document.querySelector('.guarantee-card');
+        const ctaButton = document.querySelector('.flowchart-cta');
+        
+        console.log(`👥 Passos do fluxograma: ${steps.length}`);
+        console.log(`➡️ Setas conectoras: ${arrows.length}`);
+        console.log(`🛡️ Cartão de garantia: ${guaranteeCard ? 'Presente' : 'Ausente'}`);
+        console.log(`🎯 Botão CTA: ${ctaButton ? 'Presente' : 'Ausente'}`);
+        
+        // Verifica ícones dos passos
+        steps.forEach((step, index) => {
+            const icon = step.querySelector('.step-icon i');
+            const title = step.querySelector('h3');
+            if (icon && title) {
+                console.log(`   Passo ${index + 1}: ${title.textContent} (${icon.className})`);
+            }
+        });
+        
+        console.log('✅ Fluxograma simplificado implementado com sucesso');
+        return true;
+    } else {
+        console.log('❌ Fluxograma não encontrado');
+        return false;
+    }
+    
+    console.log('=== VERIFICAÇÃO CONCLUÍDA ===');
+}
+
+// Função para verificar carregamento das fotos
+function verifyPhotos() {
+    console.log('=== VERIFICAÇÃO DAS FOTOS ===');
+    
+    const heroPhoto = document.querySelector('.hero-photo');
+    const aboutPhoto = document.querySelector('.about-photo');
+    const differentialPhotos = document.querySelectorAll('.differential-photo');
+    
+    console.log(`📸 Foto Hero: ${heroPhoto ? 'Encontrada' : 'Não encontrada'}`);
+    if (heroPhoto) {
+        console.log(`   Src: ${heroPhoto.src}`);
+        console.log(`   Carregada: ${heroPhoto.complete ? 'Sim' : 'Não'}`);
+    }
+    
+    console.log(`📸 Foto About: ${aboutPhoto ? 'Encontrada' : 'Não encontrada'}`);
+    if (aboutPhoto) {
+        console.log(`   Src: ${aboutPhoto.src}`);
+        console.log(`   Carregada: ${aboutPhoto.complete ? 'Sim' : 'Não'}`);
+    }
+    
+    console.log(`📸 Fotos Diferenciais: ${differentialPhotos.length} encontradas`);
+    differentialPhotos.forEach((photo, index) => {
+        console.log(`   Diferencial ${index + 1}: ${photo.complete ? 'Carregada' : 'Carregando...'}`);
+        console.log(`   Src: ${photo.src}`);
+    });
+    
+    const totalPhotos = (heroPhoto ? 1 : 0) + (aboutPhoto ? 1 : 0) + differentialPhotos.length;
+    console.log(`✅ Total de fotos implementadas: ${totalPhotos}/6`);
+    
+    console.log('=== VERIFICAÇÃO DAS FOTOS CONCLUÍDA ===');
+    
+    return totalPhotos;
 }
 
 // Chat Widget Discreto
@@ -815,6 +1289,12 @@ class ChatWidget {
                 id: 'contribuicao_inss',
                 question: 'Você já contribuiu para o INSS em algum momento?',
                 options: ['Sim, sempre contribuí', 'Sim, mas parei', 'Nunca contribuí', 'Não sei ao certo']
+            },
+            {
+                id: 'numero_contato',
+                question: 'Qual o seu número para contato?',
+                type: 'input',
+                placeholder: 'Digite seu WhatsApp com DDD'
             },
             {
                 id: 'dados_pessoais',
@@ -975,6 +1455,8 @@ class ChatWidget {
             setTimeout(() => {
                 if (question.type === 'form') {
                     this.showWidgetForm();
+                } else if (question.type === 'input') {
+                    this.showInputQuestion(question);
                 } else {
                     this.addBotMessage(question.question, question.options);
                 }
@@ -991,6 +1473,87 @@ class ChatWidget {
                 ['Sim, quero descobrir!', 'Tenho mais dúvidas']
             );
         }, 1000);
+    }
+
+    showInputQuestion(question) {
+        this.addBotMessage(question.question);
+        
+        setTimeout(() => {
+            const widgetOptions = document.getElementById('chatWidgetOptions');
+            widgetOptions.innerHTML = `
+                <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 1rem;">
+                    <input type="tel" id="questionInput" placeholder="${question.placeholder || 'Digite sua resposta'}" 
+                           style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.9rem;">
+                    <button onclick="window.chatWidgetInstance.handleInputSubmit('${question.id}')" 
+                            style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                            color: white; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; 
+                            font-size: 0.9rem; margin-top: 0.75rem;">
+                        Enviar
+                    </button>
+                </div>
+            `;
+            widgetOptions.style.display = 'block';
+            document.querySelector('#chatWidgetWindow .chat-input-container').style.display = 'none';
+            
+            // Foca no input e adiciona máscara de telefone
+            const input = document.getElementById('questionInput');
+            input.focus();
+            
+            // Adiciona máscara de telefone se for o campo de contato
+            if (question.id === 'numero_contato') {
+                input.addEventListener('input', this.formatPhoneNumber);
+                
+                // Permite enviar com Enter
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.handleInputSubmit(question.id);
+                    }
+                });
+            }
+        }, 1000);
+    }
+
+    handleInputSubmit(questionId) {
+        const input = document.getElementById('questionInput');
+        const value = input.value.trim();
+        
+        if (!value) {
+            // Cria toast de erro usando Bootstrap
+            AuxilioMaternidade.createBootstrapToast('Por favor, digite uma resposta válida', 'error');
+            return;
+        }
+        
+        // Validação específica para telefone
+        if (questionId === 'numero_contato') {
+            const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+            if (!phoneRegex.test(value)) {
+                AuxilioMaternidade.createBootstrapToast('Por favor, digite um telefone válido (ex: (11) 99999-9999)', 'error');
+                return;
+            }
+        }
+        
+        // Salva a resposta
+        this.userData[questionId] = value;
+        this.addUserMessage(value);
+        
+        // Continua para próxima pergunta
+        this.nextQuestion();
+    }
+
+    formatPhoneNumber(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        
+        if (value.length >= 11) {
+            value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        } else if (value.length >= 10) {
+            value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        } else if (value.length >= 6) {
+            value = value.replace(/(\d{2})(\d{4})/, '($1) $2');
+        } else if (value.length >= 2) {
+            value = value.replace(/(\d{2})/, '($1) ');
+        }
+        
+        e.target.value = value;
     }
 
     showWidgetForm() {
@@ -1039,14 +1602,18 @@ class ChatWidget {
     }
 
     showResult() {
+        const nomeUsuario = this.userData.nome || 'querida';
+        const numeroContato = this.userData.numero_contato || 'o número informado';
+        
         setTimeout(() => {
             this.addBotMessage(
-                `Ótimo, ${this.userData.nome || 'querida'}! 🎉<br><br>
+                `Ótimo, ${nomeUsuario}! 🎉<br><br>
                 <strong>Você pode ter direito sim!</strong><br><br>
-                Nossa equipe entrará em contato via WhatsApp em até 2 horas.<br><br>
+                Nossa equipe entrará em contato no ${numeroContato} via WhatsApp em até 2 horas.<br><br>
                 ✅ Análise detalhada<br>
                 ✅ Orientações completas<br>
-                ✅ Acompanhamento total`
+                ✅ Acompanhamento total<br><br>
+                <small style="color: #666;">Dados coletados: ${this.getUserDataSummary()}</small>`
             );
 
             setTimeout(() => {
@@ -1055,11 +1622,22 @@ class ChatWidget {
                         <p style="color: #10b981; font-weight: 600; margin: 0; font-size: 0.9rem;">
                             ✅ Dados enviados com sucesso!
                         </p>
+                        <small style="color: #666; font-size: 0.8rem; display: block; margin-top: 0.5rem;">
+                            Aguarde nosso contato no WhatsApp
+                        </small>
                     </div>
                 `;
             }, 2000);
 
         }, 1000);
+    }
+
+    getUserDataSummary() {
+        const data = [];
+        if (this.userData.nome) data.push(`Nome: ${this.userData.nome}`);
+        if (this.userData.numero_contato) data.push(`WhatsApp: ${this.userData.numero_contato}`);
+        if (this.userData.email) data.push(`Email: ${this.userData.email}`);
+        return data.join(' | ');
     }
 
     sendWidgetMessage() {
@@ -1117,18 +1695,35 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         verifyButtonFunctionality();
         testChatWidget();
-    }, 1000);
+        verifyTextImprovements();
+        verifyFlowchart();
+        verifyPhotos();
+    }, 2000);
 });
 
 // Exporta funcionalidades para uso global (se necessário)
 window.AuxilioMaternidade = {
     showSuccess,
     showError,
+    showInfo,
     toggleMobileMenu,
     closeMobileMenu,
     openChatWidget,
     verifyButtonFunctionality,
-    testChatWidget
+    testChatWidget,
+    testContactQuestion,
+    verifyTextImprovements,
+    verifyWaveDividers,
+    verifyFlowchart,
+    verifyPhotos,
+    // Funções do Bootstrap
+    showBootstrapModal,
+    hideBootstrapModal,
+    showBootstrapToast,
+    createBootstrapToast,
+    createBootstrapModal,
+    addBootstrapTooltip,
+    initializeBootstrap
 };
 
 // Função adicional para reativar botões caso necessário
@@ -1139,5 +1734,39 @@ function reactivateAllButtons() {
     console.log('✅ Botões reativados');
 }
 
+// Função de exemplo para demonstrar Bootstrap
+function demonstrateBootstrap() {
+    // Exemplo de toast
+    createBootstrapToast('Bootstrap integrado com sucesso! 🎉', 'success');
+    
+    // Exemplo de modal (após 2 segundos)
+    setTimeout(() => {
+        const modalContent = `
+            <div class="text-center">
+                <h4 class="gradient-text mb-3">Bootstrap e Chat Atualizados!</h4>
+                <p>Agora você pode usar todos os componentes do Bootstrap 5.3:</p>
+                <ul class="text-start mt-3">
+                    <li>✅ Modals responsivos</li>
+                    <li>✅ Toasts personalizados</li>
+                    <li>✅ Tooltips e popovers</li>
+                    <li>✅ Carousels e accordions</li>
+                    <li>✅ Sistema de grid</li>
+                    <li>✅ Componentes de formulário</li>
+                </ul>
+                <div class="alert alert-info mt-3">
+                    <strong>Novo:</strong> Pergunta de contato adicionada ao chat bot! 📱
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-custom-success me-2" onclick="AuxilioMaternidade.createBootstrapToast('Teste realizado!', 'info')">Testar Toast</button>
+                    <button class="btn btn-custom-primary me-2" onclick="AuxilioMaternidade.openChatWidget()">Testar Chat</button>
+                    <button class="btn btn-outline-primary" onclick="AuxilioMaternidade.testContactQuestion()">Verificar Pergunta</button>
+                </div>
+            </div>
+        `;
+        createBootstrapModal('Demonstração Bootstrap + Chat', modalContent, 'lg');
+    }, 2000);
+}
+
 // Expor função globalmente
 window.reactivateAllButtons = reactivateAllButtons;
+window.demonstrateBootstrap = demonstrateBootstrap;
