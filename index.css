@@ -67,51 +67,53 @@ p {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     font-weight: 700;
-    box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.4);
+    box-shadow: 0 4px 14px 0 rgba(236, 72, 153, 0.4);
     border: none;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+    background: linear-gradient(135deg, #db2777 0%, #9d174d 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.5);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
     color: white;
 }
 
 .btn-secondary {
-    background: white;
-    color: #4f46e5;
-    border: 2px solid #4f46e5;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+    color: white;
+    border: 2px solid #f472b6;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(244, 114, 182, 0.4);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary:hover {
-    background: #4f46e5;
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     font-weight: 700;
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
-    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(244, 114, 182, 0.6);
+    transform: translateY(-3px) scale(1.02);
+    border-color: #ec4899;
 }
 
 .btn-cta {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     padding: 12px 24px;
     border-radius: 8px;
     font-weight: 700;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+    box-shadow: 0 4px 14px rgba(236, 72, 153, 0.4);
 }
 
 .btn-cta:hover {
-    background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+    background: linear-gradient(135deg, #db2777 0%, #9d174d 100%);
     transform: translateY(-2px);
     color: white;
-    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.5);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
 }
 
 /* Garantir visibilidade de todos os botões e links */
@@ -127,14 +129,17 @@ a.btn:hover, button.btn:hover {
 }
 
 a.btn-secondary {
-    color: #4f46e5 !important;
-    font-weight: 600;
-    background: white !important;
+    color: white !important;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%) !important;
+    border-color: #f472b6 !important;
 }
 
 a.btn-secondary:hover {
     color: white !important;
-    background: #4f46e5 !important;
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%) !important;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(244, 114, 182, 0.6);
 }
 
 /* Efeito de brilho nos botões para melhor UX */
@@ -173,7 +178,7 @@ a.btn-secondary:hover {
 }
 
 .nav-brand h2 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -195,7 +200,7 @@ a.btn-secondary:hover {
 }
 
 .nav-menu a:hover {
-    color: #667eea;
+    color: #ec4899;
 }
 
 .nav-toggle {
@@ -215,7 +220,7 @@ a.btn-secondary:hover {
 /* Hero Section */
 .hero {
     padding: 120px 0 80px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     position: relative;
     overflow: hidden;
@@ -294,16 +299,16 @@ a.btn-secondary:hover {
 
 .hero-visual {
     position: relative;
-    width: 400px;
-    height: 300px;
+    width: 550px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .hero-main-image {
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     display: flex;
@@ -430,7 +435,7 @@ a.btn-secondary:hover {
 .feature-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -467,7 +472,7 @@ a.btn-secondary:hover {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #10b981;
+    color: #f472b6;
     font-weight: bold;
 }
 
@@ -497,13 +502,13 @@ a.btn-secondary:hover {
 }
 
 .solution-card:hover {
-    border-color: #667eea;
+    border-color: #ec4899;
     transform: translateY(-2px);
     background: white;
 }
 
 .solution-card h3 {
-    color: #667eea;
+    color: #ec4899;
     margin-bottom: 1rem;
 }
 
@@ -544,7 +549,7 @@ a.btn-secondary:hover {
 
 .highlight-item i {
     font-size: 2rem;
-    color: #667eea;
+    color: #ec4899;
     margin-bottom: 0.5rem;
 }
 
@@ -611,15 +616,15 @@ a.btn-secondary:hover {
 /* Cores diferentes para cada barra para melhor identificação */
 .chart-bar[data-percentage="96"]::before { 
     width: 96%; 
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
 }
 .chart-bar[data-percentage="95"]::before { 
     width: 95%; 
-    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
 }
 .chart-bar[data-percentage="92"]::before { 
     width: 92%; 
-    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
 }
 
 .chart-bar span {
@@ -653,12 +658,12 @@ a.btn-secondary:hover {
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #ec4899;
 }
 
 .testimonial-preview i {
     font-size: 1.5rem;
-    color: #667eea;
+    color: #ec4899;
     margin-bottom: 1rem;
 }
 
@@ -726,13 +731,13 @@ a.btn-secondary:hover {
 }
 
 .step-circle.blue {
-    border-color: #3b82f6;
+    border-color: #fbbf24;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
 }
 
-.step-circle.green {
-    border-color: #10b981;
-    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+.step-circle.pink3 {
+    border-color: #f472b6;
+    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
 }
 
 .step-number {
@@ -746,11 +751,11 @@ a.btn-secondary:hover {
 }
 
 .step-circle.blue .step-number {
-    color: #3b82f6;
+    color: #f472b6;
 }
 
-.step-circle.green .step-number {
-    color: #10b981;
+.step-circle.pink3 .step-number {
+    color: #be185d;
 }
 
 .step-title {
@@ -771,7 +776,7 @@ a.btn-secondary:hover {
     position: absolute;
     top: 50%;
     height: 4px;
-    background: linear-gradient(90deg, #ec4899 0%, #3b82f6 50%, #10b981 100%);
+    background: linear-gradient(90deg, #ec4899 0%, #f472b6 50%, #fbbf24 100%);
     transform: translateY(-50%);
     z-index: 1;
     border-radius: 2px;
@@ -822,21 +827,21 @@ a.btn-secondary:hover {
 .chat-widget-button {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4);
     transition: all 0.3s ease;
     position: relative;
 }
 
 .chat-widget-button:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5);
+    box-shadow: 0 6px 25px rgba(244, 114, 182, 0.5);
 }
 
 .chat-widget-button i {
@@ -927,7 +932,7 @@ a.btn-secondary:hover {
 
 .online-status {
     font-size: 0.8rem;
-    color: #86efac;
+    color: #f472b6;
     display: flex;
     align-items: center;
     gap: 0.3rem;
@@ -937,7 +942,7 @@ a.btn-secondary:hover {
     content: '';
     width: 6px;
     height: 6px;
-    background: #22c55e;
+    background: #f472b6;
     border-radius: 50%;
 }
 
@@ -992,12 +997,12 @@ a.btn-secondary:hover {
 }
 
 .chat-widget-messages .bot-message .message-avatar {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
 }
 
 .chat-widget-messages .user-message .message-avatar {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
 }
 
@@ -1011,7 +1016,7 @@ a.btn-secondary:hover {
 }
 
 .chat-widget-messages .user-message .message-content {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
     color: white;
 }
 
@@ -1154,7 +1159,7 @@ a.btn-secondary:hover {
 .testimonial-avatar {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -1179,7 +1184,7 @@ a.btn-secondary:hover {
 }
 
 .testimonial-content h3 {
-    color: #667eea;
+    color: #ec4899;
     margin-bottom: 1rem;
 }
 
@@ -1196,8 +1201,9 @@ a.btn-secondary:hover {
 
 .differentials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    align-items: start;
 }
 
 .differential-item {
@@ -1247,7 +1253,7 @@ a.btn-secondary:hover {
     transform: translate(-50%, -50%);
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -1292,18 +1298,18 @@ a.btn-secondary:hover {
     background: white;
     padding: 2rem;
     border-radius: 8px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #ec4899;
     border: 1px solid #e2e8f0;
 }
 
 .category-card h3 {
-    color: #667eea;
+    color: #ec4899;
     margin-bottom: 1rem;
 }
 
 .value-highlight {
     text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     padding: 3rem;
     border-radius: 12px;
     color: white;
@@ -1369,7 +1375,7 @@ a.btn-secondary:hover {
 }
 
 .faq-question i {
-    color: #667eea;
+    color: #ec4899;
     transition: transform 0.3s ease;
 }
 
@@ -1432,13 +1438,13 @@ a.btn-secondary:hover {
     padding: 2rem;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #ec4899;
 }
 
 .card-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -1469,7 +1475,7 @@ a.btn-secondary:hover {
 
 .company-stat strong {
     font-size: 1.5rem;
-    color: #667eea;
+    color: #ec4899;
 }
 
 .company-stat span {
@@ -1494,7 +1500,7 @@ a.btn-secondary:hover {
 .office-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -1534,7 +1540,7 @@ a.btn-secondary:hover {
 .metric-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -1580,7 +1586,7 @@ a.btn-secondary:hover {
 
 .value-item i {
     font-size: 2.5rem;
-    color: #667eea;
+    color: #ec4899;
     margin-bottom: 1rem;
 }
 
@@ -1598,7 +1604,7 @@ a.btn-secondary:hover {
 /* CTA Section */
 .cta-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
 }
 
@@ -1655,7 +1661,7 @@ a.btn-secondary:hover {
 .cta-form input:focus,
 .cta-form select:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #ec4899;
 }
 
 .cta-form .btn {
@@ -1664,7 +1670,7 @@ a.btn-secondary:hover {
     font-weight: 700;
     font-size: 1.2rem;
     padding: 18px 24px;
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #047857 100%);
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     border: none;
@@ -1688,7 +1694,7 @@ a.btn-secondary:hover {
 }
 
 .security-note i {
-    color: #10b981;
+    color: #f472b6;
 }
 
 /* Footer */
@@ -1706,7 +1712,7 @@ a.btn-secondary:hover {
 }
 
 .footer-brand h3 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1743,7 +1749,7 @@ a.btn-secondary:hover {
 }
 
 .footer-column a:hover {
-    color: #667eea;
+    color: #ec4899;
 }
 
 .footer-bottom {
@@ -1793,6 +1799,20 @@ a.btn-secondary:hover {
         right: auto;
         transform: none;
         margin-top: 1rem;
+    }
+}
+
+/* Telas grandes - otimização para 4 cards na mesma linha */
+@media (min-width: 1200px) {
+    .differentials-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .differential-item {
+        padding: 2.5rem 1.5rem;
     }
 }
 
@@ -1847,13 +1867,13 @@ a.btn-secondary:hover {
     }
     
     .hero-visual {
-        width: 300px;
-        height: 200px;
+        width: 400px;
+        height: 350px;
     }
     
     .hero-main-image {
-        width: 200px;
-        height: 200px;
+        width: 350px;
+        height: 350px;
     }
     
     .about-photo {
@@ -1872,9 +1892,13 @@ a.btn-secondary:hover {
     .features-grid,
     .solutions-grid,
     .testimonials-grid,
-    .categories-grid,
-    .differentials-grid {
+    .categories-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .differentials-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
     }
     
     /* Responsivo para o novo fluxo */
@@ -1951,13 +1975,13 @@ a.btn-secondary:hover {
     }
     
     .hero-visual {
-        width: 250px;
-        height: 180px;
+        width: 320px;
+        height: 240px;
     }
     
     .hero-main-image {
-        width: 120px;
-        height: 120px;
+        width: 200px;
+        height: 200px;
     }
     
     .hero-main-image i {
@@ -2005,6 +2029,11 @@ a.btn-secondary:hover {
     
     .tech-icon i {
         font-size: 1.5rem;
+    }
+    
+    .differentials-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 }
 
@@ -2123,7 +2152,7 @@ a.btn-secondary:hover {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #667eea, #764ba2, #10b981);
+    background: linear-gradient(90deg, #ec4899, #be185d, #f472b6);
 }
 
 /* Passos do fluxograma */
@@ -2176,15 +2205,15 @@ a.btn-secondary:hover {
 }
 
 .step-1 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
 }
 
 .step-2 {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
 }
 
 .step-3 {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
 }
 
 /* Conteúdo dos passos */
@@ -2222,7 +2251,7 @@ a.btn-secondary:hover {
 .arrow-line {
     width: 40px;
     height: 3px;
-    background: linear-gradient(90deg, #667eea, #764ba2);
+    background: linear-gradient(90deg, #ec4899, #be185d);
     border-radius: 2px;
     position: relative;
 }
@@ -2230,7 +2259,7 @@ a.btn-secondary:hover {
 .arrow-head {
     width: 0;
     height: 0;
-    border-left: 10px solid #764ba2;
+    border-left: 10px solid #be185d;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     margin-left: -2px;
@@ -2261,21 +2290,21 @@ a.btn-secondary:hover {
 }
 
 .guarantee-card {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     padding: 1.5rem 2rem;
     border-radius: 15px;
     display: flex;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
     transform: perspective(1000px) rotateX(5deg);
     transition: all 0.3s ease;
 }
 
 .guarantee-card:hover {
     transform: perspective(1000px) rotateX(0deg) translateY(-2px);
-    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 12px 35px rgba(244, 114, 182, 0.4);
 }
 
 .guarantee-icon {
@@ -2302,7 +2331,7 @@ a.btn-secondary:hover {
 }
 
 .flowchart-cta {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
     border: none;
     color: white;
     padding: 1rem 2.5rem;
@@ -2314,7 +2343,7 @@ a.btn-secondary:hover {
     align-items: center;
     gap: 0.75rem;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 25px rgba(244, 114, 182, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -2336,7 +2365,7 @@ a.btn-secondary:hover {
 
 .flowchart-cta:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 12px 35px rgba(244, 114, 182, 0.4);
     color: white;
     text-decoration: none;
 }
@@ -2467,7 +2496,7 @@ a.btn-secondary:hover {
 }
 
 .wave-divider-2 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
 }
 
 .wave-divider-2::before {
@@ -2482,7 +2511,7 @@ a.btn-secondary:hover {
 }
 
 .wave-divider-3 {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
 }
 
 .wave-divider-3::before {
@@ -2573,7 +2602,7 @@ section {
 
 /* Alternância de backgrounds para criar mais divisão visual */
 .hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
 }
 
@@ -2603,7 +2632,7 @@ section {
 }
 
 .differentials {
-    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
     padding: 5rem 0;
 }
 
@@ -2623,7 +2652,7 @@ section {
 }
 
 .cta-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     padding: 5rem 0;
 }
@@ -2642,7 +2671,7 @@ section {
 
 /* Ondulações mais complexas com SVG inline */
 .wave-divider-advanced-1 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     position: relative;
     height: 100px;
 }
@@ -2659,7 +2688,7 @@ section {
 }
 
 .wave-divider-advanced-2 {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
     position: relative;
     height: 100px;
 }
@@ -2677,7 +2706,7 @@ section {
 
 /* Ondulações com gradientes múltiplos */
 .wave-divider-gradient {
-    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+    background: linear-gradient(45deg, #ec4899, #be185d, #f093fb, #f5576c);
     background-size: 300% 300%;
     animation: gradient-wave 6s ease infinite;
     position: relative;
@@ -2745,7 +2774,7 @@ section {
 
 /* Botões customizados que se integram com Bootstrap */
 .btn-custom-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     border: none;
     color: white;
     transition: all 0.3s ease;
@@ -2754,11 +2783,11 @@ section {
 .btn-custom-primary:hover {
     background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.3);
 }
 
 .btn-custom-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
     border: none;
     color: white;
     transition: all 0.3s ease;
@@ -2767,7 +2796,7 @@ section {
 .btn-custom-success:hover {
     background: linear-gradient(135deg, #0d9568 0%, #047857 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 25px rgba(244, 114, 182, 0.3);
 }
 
 /* Cards Bootstrap customizados */
@@ -2806,7 +2835,7 @@ section {
 }
 
 .toast-custom.toast-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
     color: white;
 }
 
@@ -2816,7 +2845,7 @@ section {
 }
 
 .toast-custom.toast-info {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #fbbf24 0%, #2563eb 100%);
     color: white;
 }
 
@@ -2837,7 +2866,7 @@ section {
 }
 
 .accordion-custom .accordion-button:not(.collapsed) {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     color: white;
     box-shadow: none;
 }
@@ -2857,8 +2886,8 @@ section {
 }
 
 .form-control-custom:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    border-color: #ec4899;
+    box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25);
 }
 
 /* Navbar Bootstrap customizada */
@@ -2876,18 +2905,18 @@ section {
 
 /* Utilitários Bootstrap customizados */
 .gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .gradient-bg-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
 }
 
 .gradient-bg-success {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
 }
 
 .shadow-custom {
