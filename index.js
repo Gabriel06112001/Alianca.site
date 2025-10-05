@@ -1330,8 +1330,8 @@ class ChatWidget {
         this.questions = [
             {
                 id: 'inicio',
-                question: 'Perfeito! Vamos descobrir se você tem direito. Primeiro: você tem filhos?',
-                options: ['Sim, tenho filhos', 'Não tenho filhos']
+                question: 'Você está gestante ou tem filho de até 5 (cinco) anos de idade?',
+                options: ['Sim, estou gestante', 'Sim, tenho filhos de até 5 anos', 'Tenho filhos mais velhos', 'Não tenho filhos']
             },
             {
                 id: 'idade_filhos',
@@ -1667,6 +1667,7 @@ class ChatWidget {
             this.addBotMessage(
                 `Ótimo, ${nomeUsuario}! 🎉<br><br>
                 <strong>Você pode ter direito sim!</strong><br><br>
+                💰 <strong>Valores: de R$ 6.072,00 até R$ 32.629,64</strong><br><br>
                 Nossa equipe entrará em contato no ${numeroContato} via WhatsApp em até 2 horas.<br><br>
                 ✅ Análise detalhada<br>
                 ✅ Orientações completas<br>
